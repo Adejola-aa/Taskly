@@ -57,6 +57,18 @@ class AppColors {
   static const Color categoryBlue = Color(0xFF4D96FF);
 
   // ---------------------------------------------------------------------------
+  // SEMANTIC ALIASES FOR THEME SYSTEM
+  // ---------------------------------------------------------------------------
+
+  static const Color lightScaffoldBackground = lightBackground;
+  static const Color darkScaffoldBackground = darkBackground;
+
+  static const Color secondary = categoryPurple;
+  static const Color secondaryLight = categoryPurple;
+
+  static const Color darkBorder = Color(0xFF2D3748);
+
+  // ---------------------------------------------------------------------------
   // BORDERS & DIVIDERS
   // ---------------------------------------------------------------------------
 
@@ -75,6 +87,7 @@ class AppColors {
 
   static const Color iconPrimary = textPrimary;
   static const Color iconSecondary = textSecondary;
+  static const Color iconAccent = primary; 
 
   // ---------------------------------------------------------------------------
   // NEUTRALS
@@ -84,3 +97,4 @@ class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color transparent = Colors.transparent;
 }
+
