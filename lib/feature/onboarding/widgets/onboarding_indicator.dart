@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:taskly/core/constants/colors.dart';
+import 'package:taskly/core/constants/sizes.dart';
 
 class OnboardingIndicator extends StatelessWidget {
   final int currentIndex;
@@ -20,11 +22,11 @@ class OnboardingIndicator extends StatelessWidget {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           margin: const EdgeInsets.symmetric(horizontal: 4),
-          height: 4, // 👈 thin line
-          width: isActive ? 28 : 12, // 👈 active is longer
+          height: 5,
+          width: isActive ? 30 : 15,
           decoration: BoxDecoration(
-            color: isActive ? Colors.black : Colors.grey.shade400,
-            borderRadius: BorderRadius.circular(20), // 👈 smooth pill shape
+            color: isActive ? AppColors.buttonPrimary : AppColors.buttonDisabled,
+            borderRadius: BorderRadius.circular(AppSizes.radiusXl),
           ),
         );
       }),
