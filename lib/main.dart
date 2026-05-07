@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:taskly/feature/onboarding/screens/onboarding_screen.dart';
-import 'package:taskly/feature/onboarding/widgets/onboarding_page.dart';
-
 void main() {
   runApp(const TasklyApp());
 }
