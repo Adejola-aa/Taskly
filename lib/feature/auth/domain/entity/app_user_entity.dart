@@ -1,13 +1,13 @@
-class AppUser {
+class AppUserEntity {
   final String id;
   final String email;
   final String displayName;
-  final String photoUrl;
+  final String? photoUrl;
 
-  const AppUser({
+  const AppUserEntity({
     required this.id,
     required this.email,
     required this.displayName,
-    required this.photoUrl,
+    this.photoUrl,
   });
 }

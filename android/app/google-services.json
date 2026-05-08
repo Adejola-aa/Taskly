@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "21921704445",
+    "project_id": "taskly-f875f",
+    "storage_bucket": "taskly-f875f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21921704445:android:041600083f984c361b5194",
+        "android_client_info": {
+          "package_name": "com.taskly.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21921704445-7tsitbd62gedhiuv30ieoa8m4bnmh9fn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taskly.app",
+            "certificate_hash": "df852261abc55c42b48d1d8186d3fcb8e909498d"
+          }
+        },
+        {
+          "client_id": "21921704445-kva0ajd3cc8bsff02f2snaq4jepl5dsc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTT2EMY0L3ulDq5hrlZZk5HkfnVoijvgI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21921704445-kva0ajd3cc8bsff02f2snaq4jepl5dsc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "21921704445-g413t0vo7seuo0se63tdcc8loifr16tj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.taskly.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,15 +1,15 @@
-import 'package:taskly/feature/auth/domain/entity/app_user.dart';
+import 'package:taskly/feature/auth/domain/entity/app_user_entity.dart';
 
 abstract class AuthRepository {
-  Future<AppUser> getCurrentUser();
+  Future<AppUserEntity> getCurrentUser();
 
-  Future<AppUser> signInWithGoogle();
+  Future<AppUserEntity> signInWithGoogle();
 
-  Future<AppUser> signInWithApple();
+  Future<AppUserEntity> signInWithApple();
 
-  Future<AppUser> signInWithEmail(String email, String password);
+  Future<AppUserEntity> signInWithEmail(String email, String password);
 
-  Future<AppUser> signUpWithEmail({
+  Future<AppUserEntity> signUpWithEmail({
     required String email,
     required String password,
     required String displayName,

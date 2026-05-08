@@ -1,4 +1,4 @@
-import 'package:taskly/feature/auth/domain/entity/app_user.dart';
+import 'package:taskly/feature/auth/domain/entity/app_user_entity.dart';
 import 'package:taskly/feature/auth/domain/repository/auth_repository.dart';
 
 class SignUpWithEmail {
@@ -6,7 +6,7 @@ class SignUpWithEmail {
 
   const SignUpWithEmail(this._repository);
 
-  Future<AppUser> call({
+  Future<AppUserEntity> call({
     required String email,
     required String password,
     required String displayName,
