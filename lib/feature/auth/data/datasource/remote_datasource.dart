@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:taskly/core/error/app_exception.dart';
+import 'package:taskly/feature/auth/data/datasource/auth_error_mapper.dart';
 import 'package:taskly/feature/auth/data/model/app_user_model.dart';
 
 abstract class AuthRemoteDatasource {
-    Future<AppUserModel?> getCurrentUser();
+  Future<AppUserModel?> getCurrentUser();
   Future<AppUserModel> signInWithEmail(String email, String password);
   Future<AppUserModel> signUpWithEmail({
     required String email,
@@ -19,31 +21,109 @@ abstract class AuthRemoteDatasource {
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDatasource {
   final FirebaseAuth auth;
-  final GoogleSignIn googleSignIn;
 
-  AuthRemoteDataSourceImpl({required this.auth, required this.googleSignIn});
+  const AuthRemoteDataSourceImpl({required this.auth});
 
-@override
-  Future<AppUserModel?> getCurrentUser() {
-  
-  }
-
-@override
-  Future<AppUserModel> signInWithEmail(String email, String password) {
-    // TODO: implement signInWithEmail
-    throw UnimplementedError();
+  @override
+  Future<AppUserModel?> getCurrentUser() async {
+    final user = auth.currentUser;
+    if (user == null) return null;
+    return AppUserModel.fromFirebaseUser(user);
   }
 
   @override
-  Future<AppUserModel> signInWithGoogle() {
-    // TODO: implement signInWithGoogle
-    throw UnimplementedError();
+  Future<AppUserModel> signInWithEmail(String email, String password) async {
+    try {
+      final result = await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      final user = result.user!;
+      return AppUserModel.fromFirebaseUser(user);
+    } on FirebaseAuthException catch (e) {
+      throw mapFirebaseAuthException(e);
+    } catch (_) {
+      throw const ServerException(
+        message: 'Something went wrong. Please try again.',
+      );
+    }
   }
 
   @override
-  Future<AppUserModel> signInWithApple() {
-    // TODO: implement signInWithApple
-    throw UnimplementedError();
+  Future<AppUserModel> signInWithGoogle() async {
+    try {
+      final googleSignIn = GoogleSignIn.instance;
+
+      if (!googleSignIn.supportsAuthenticate()) {
+        throw const ServerException(
+          message: 'Google sign-in is not supported on this platform.',
+        );
+      }
+
+      final GoogleSignInAccount googleUser = await googleSignIn.authenticate();
+
+      final googleAuth = googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
+
+      final result = await auth.signInWithCredential(credential);
+
+      final user = result.user!;
+
+      return AppUserModel.fromFirebaseUser(user);
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        throw const AuthCanceledException();
+      }
+      throw const ServerException(
+        message: 'Google sign-in failed. Please try again.',
+      );
+    } on FirebaseAuthException catch (e) {
+      throw mapFirebaseAuthException(e);
+    } catch (_) {
+      throw const ServerException(
+        message: 'Google sign-in failed. Please try again.',
+      );
+    }
+  }
+
+  @override
+  Future<AppUserModel> signInWithApple() async {
+    try {
+      final appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      final oauthCredential = OAuthProvider('apple.com').credential(
+        idToken: appleCredential.identityToken,
+        accessToken: appleCredential.authorizationCode,
+      );
+
+      final result = await auth.signInWithCredential(oauthCredential);
+
+      final user = result.user!;
+
+      return AppUserModel.fromFirebaseUser(user);
+    } on SignInWithAppleAuthorizationException catch (e) {
+      if (e.code == AuthorizationErrorCode.canceled) {
+        throw const AuthCanceledException();
+      }
+      throw const ServerException(
+        message: 'Apple sign-in failed. Please try again.',
+      );
+    } on FirebaseAuthException catch (e) {
+      throw mapFirebaseAuthException(e);
+    } catch (_) {
+      throw const ServerException(
+        message: 'Apple sign-in failed. Please try again.',
+      );
+    }
   }
 
   @override
@@ -51,20 +131,60 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDatasource {
     required String email,
     required String password,
     required String displayName,
-  }) {
-    // TODO: implement signUpWithEmai
-    throw UnimplementedError();
+  }) async {
+    try {
+      final result = await auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      final user = result.user!;
+
+      await user.updateDisplayName(displayName);
+
+      await user.reload();
+
+      final updatedUser = auth.currentUser!;
+
+      return AppUserModel.fromFirebaseUser(updatedUser);
+    } on FirebaseAuthException catch (e) {
+      throw mapFirebaseAuthException(e);
+    } catch (_) {
+      throw const ServerException(
+        message: 'Something went wrong. Please try again.',
+      );
+    }
   }
 
   @override
-  Future<void> resetPassword(String email) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
+  Future<void> resetPassword(String email) async {
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw mapFirebaseAuthException(e);
+    } catch (_) {
+      throw const ServerException(
+        message: 'Something went wrong. Please try again.',
+      );
+    }
   }
 
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+  Future<void> signOut() async {
+    try {
+      final isGoogleUser =
+          auth.currentUser?.providerData.any(
+            (provider) => provider.providerId == 'google.com',
+          ) ??
+          false;
+
+      if (isGoogleUser) {
+        await GoogleSignIn.instance.signOut();
+      }
+
+      await auth.signOut();
+    } catch (_) {
+      throw const ServerException(message: 'Failed to sign out');
+    }
   }
 }
