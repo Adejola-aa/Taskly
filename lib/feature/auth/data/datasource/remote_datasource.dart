@@ -8,9 +8,8 @@ import 'package:taskly/feature/auth/data/datasource/auth_error_mapper.dart';
 import 'package:taskly/feature/auth/data/model/app_user_model.dart';
 
 abstract class AuthRemoteDatasource {
-  Future<AppUserModel?> getCurrentUser();
-  Future<AppUserModel> signInWithEmail(String email, String password);
-  Future<AppUserModel> signUpWithEmail({
+  Future<AppUserModel> signIn(String email, String password);
+  Future<AppUserModel> signUp({
     required String email,
     required String password,
     required String displayName,
@@ -24,17 +23,10 @@ abstract class AuthRemoteDatasource {
 class AuthRemoteDataSourceImpl implements AuthRemoteDatasource {
   final FirebaseAuth auth;
 
-  const AuthRemoteDataSourceImpl({required this.auth});
+  const AuthRemoteDataSourceImpl(this.auth);
 
   @override
-  Future<AppUserModel?> getCurrentUser() async {
-    final user = auth.currentUser;
-    if (user == null) return null;
-    return AppUserModel.fromFirebaseUser(user);
-  }
-
-  @override
-  Future<AppUserModel> signInWithEmail(String email, String password) async {
+  Future<AppUserModel> signIn(String email, String password) async {
     try {
       final result = await auth.signInWithEmailAndPassword(
         email: email,
@@ -132,7 +124,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDatasource {
   }
 
   @override
-  Future<AppUserModel> signUpWithEmail({
+  Future<AppUserModel> signUp({
     required String email,
     required String password,
     required String displayName,

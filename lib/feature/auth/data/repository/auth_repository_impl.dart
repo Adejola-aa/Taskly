@@ -12,19 +12,13 @@ class AuthRepositoryImpl implements AuthRepository {
   const AuthRepositoryImpl(this._remote);
 
   @override
-  Future<Either<Failure, AppUserEntity?>> getCurrentUser() async {
-    final user = await _remote.getCurrentUser();
-    return Right(user);
-  }
-
-  @override
-  Future<Either<Failure, AppUserEntity>> signUpWithEmail({
+  Future<Either<Failure, AppUserEntity>> signUp({
     required String email,
     required String password,
     required String displayName,
   }) async {
     try {
-      final user = await _remote.signUpWithEmail(
+      final user = await _remote.signUp(
         email: email,
         password: password,
         displayName: displayName,
@@ -36,12 +30,12 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, AppUserEntity>> signInWithEmail(
+  Future<Either<Failure, AppUserEntity>> signIn(
     String email,
     String password,
   ) async {
     try {
-      final user = await _remote.signInWithEmail(email, password);
+      final user = await _remote.signIn(email, password);
       return Right(user);
     } catch (e, s) {
       return _handleException(e, s);
