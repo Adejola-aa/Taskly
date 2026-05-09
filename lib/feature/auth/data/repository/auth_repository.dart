@@ -1,6 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:taskly/core/error/app_exception.dart';
 import 'package:taskly/core/error/failure.dart';
+import 'package:taskly/core/utils/app_logger.dart';
 import 'package:taskly/feature/auth/data/datasource/remote_datasource.dart';
 import 'package:taskly/feature/auth/domain/entity/app_user_entity.dart';
 import 'package:taskly/feature/auth/domain/repository/auth_repository.dart';
@@ -29,8 +30,8 @@ class AuthRepositoryImpl implements AuthRepository {
         displayName: displayName,
       );
       return Right(user);
-    } catch (e) {
-      return _handleException(e);
+    } catch (e, s) {
+      return _handleException(e, s);
     }
   }
 
@@ -42,8 +43,8 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final user = await _remote.signInWithEmail(email, password);
       return Right(user);
-    } catch (e) {
-      return _handleException(e);
+    } catch (e, s) {
+      return _handleException(e, s);
     }
   }
 
@@ -52,8 +53,8 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final user = await _remote.signInWithGoogle();
       return Right(user);
-    } catch (e) {
-      return _handleException(e);
+    } catch (e, s) {
+      return _handleException(e, s);
     }
   }
 
@@ -62,8 +63,8 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final user = await _remote.signInWithApple();
       return Right(user);
-    } catch (e) {
-      return _handleException(e);
+    } catch (e, s) {
+      return _handleException(e, s);
     }
   }
 
@@ -72,8 +73,8 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       await _remote.resetPassword(email);
       return const Right(null);
-    } catch (e) {
-      return _handleException(e);
+    } catch (e, s) {
+      return _handleException(e, s);
     }
   }
 
@@ -82,16 +83,21 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       await _remote.signOut();
       return const Right(null);
-    } catch (e) {
-      return _handleException(e);
+    } catch (e, s) {
+      return _handleException(e, s);
     }
   }
 
-  Either<Failure, T> _handleException<T>(Object e) {
+  Either<Failure, T> _handleException<T>(Object e, StackTrace s) {
     if (e is AuthCanceledException) return const Left(CancelledFailure());
     if (e is AuthException) return Left(AuthFailure(message: e.message));
     if (e is NetworkException) return Left(NetworkFailure(message: e.message));
     if (e is ServerException) return Left(ServerFailure(message: e.message));
+    appLogger.e(
+      'Unhandled exception reached repository',
+      error: e,
+      stackTrace: s,
+    );
     return const Left(ServerFailure(message: 'Unexpected error occurred'));
   }
 }

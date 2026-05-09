@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+
 import 'package:taskly/core/error/app_exception.dart';
+import 'package:taskly/core/utils/app_logger.dart';
 import 'package:taskly/feature/auth/data/datasource/auth_error_mapper.dart';
 import 'package:taskly/feature/auth/data/model/app_user_model.dart';
 
@@ -43,7 +45,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDatasource {
       return AppUserModel.fromFirebaseUser(user);
     } on FirebaseAuthException catch (e) {
       throw mapFirebaseAuthException(e);
-    } catch (_) {
+    } catch (e, s) {
+      appLogger.e('Unexpected sign in error', error: e, stackTrace: s);
       throw const ServerException(
         message: 'Something went wrong. Please try again.',
       );
@@ -83,7 +86,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDatasource {
       );
     } on FirebaseAuthException catch (e) {
       throw mapFirebaseAuthException(e);
-    } catch (_) {
+    } catch (e, s) {
+      appLogger.e('Unexpected Google sign-in error', error: e, stackTrace: s);
       throw const ServerException(
         message: 'Google sign-in failed. Please try again.',
       );
@@ -119,7 +123,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDatasource {
       );
     } on FirebaseAuthException catch (e) {
       throw mapFirebaseAuthException(e);
-    } catch (_) {
+    } catch (e, s) {
+      appLogger.e('Unexpected Apple sign-in error', error: e, stackTrace: s);
       throw const ServerException(
         message: 'Apple sign-in failed. Please try again.',
       );
@@ -149,7 +154,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDatasource {
       return AppUserModel.fromFirebaseUser(updatedUser);
     } on FirebaseAuthException catch (e) {
       throw mapFirebaseAuthException(e);
-    } catch (_) {
+    } catch (e, s) {
+      appLogger.e('Unexpected sign up error', error: e, stackTrace: s);
       throw const ServerException(
         message: 'Something went wrong. Please try again.',
       );
@@ -162,7 +168,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDatasource {
       await auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       throw mapFirebaseAuthException(e);
-    } catch (_) {
+    } catch (e, s) {
+      appLogger.e('Unexpected reset password error', error: e, stackTrace: s);
       throw const ServerException(
         message: 'Something went wrong. Please try again.',
       );
@@ -183,7 +190,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDatasource {
       }
 
       await auth.signOut();
-    } catch (_) {
+    } catch (e, s) {
+      appLogger.e('Unexpected sign out error', error: e, stackTrace: s);
       throw const ServerException(message: 'Failed to sign out');
     }
   }
