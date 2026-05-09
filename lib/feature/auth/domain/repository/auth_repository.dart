@@ -1,21 +1,26 @@
+import 'package:fpdart/fpdart.dart';
+import 'package:taskly/core/error/failure.dart';
 import 'package:taskly/feature/auth/domain/entity/app_user_entity.dart';
 
 abstract class AuthRepository {
-  Future<AppUserEntity> getCurrentUser();
+  Future<Either<Failure, AppUserEntity?>> getCurrentUser();
 
-  Future<AppUserEntity> signInWithGoogle();
+  Future<Either<Failure, AppUserEntity>> signInWithGoogle();
 
-  Future<AppUserEntity> signInWithApple();
+  Future<Either<Failure, AppUserEntity>> signInWithApple();
 
-  Future<AppUserEntity> signInWithEmail(String email, String password);
+  Future<Either<Failure, AppUserEntity>> signInWithEmail(
+    String email,
+    String password,
+  );
 
-  Future<AppUserEntity> signUpWithEmail({
+  Future<Either<Failure, AppUserEntity>> signUpWithEmail({
     required String email,
     required String password,
     required String displayName,
   });
 
-  Future<void> resetPassword(String email);
+  Future<Either<Failure, void>> resetPassword(String email);
 
-  Future<void> signOut();
+  Future<Either<Failure, void>> signOut();
 }

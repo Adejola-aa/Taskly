@@ -23,6 +23,10 @@ class AuthFailure extends Failure {
     : super(message);
 }
 
+class CancelledFailure extends Failure {
+  const CancelledFailure([super.message = 'Cancelled']);
+}
+
 class UnknownFailure extends Failure {
   const UnknownFailure({String message = "Something went wrong"})
     : super(message);

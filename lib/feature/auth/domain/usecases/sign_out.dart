@@ -1,3 +1,5 @@
+import 'package:fpdart/fpdart.dart';
+import 'package:taskly/core/error/failure.dart';
 import 'package:taskly/feature/auth/domain/repository/auth_repository.dart';
 
 class SignOut {
@@ -5,7 +7,7 @@ class SignOut {
 
   const SignOut(this._repository);
 
-  Future<void> call() {
+  Future<Either<Failure, void>> call() {
     return _repository.signOut();
   }
 }

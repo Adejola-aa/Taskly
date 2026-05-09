@@ -1,3 +1,5 @@
+import 'package:fpdart/fpdart.dart';
+import 'package:taskly/core/error/failure.dart';
 import 'package:taskly/feature/auth/domain/entity/app_user_entity.dart';
 import 'package:taskly/feature/auth/domain/repository/auth_repository.dart';
 
@@ -6,7 +8,7 @@ class GetCurrentUser {
 
   GetCurrentUser(this._repository);
 
-  Future<AppUserEntity?> call() {
+  Future<Either<Failure, AppUserEntity?>> call() {
     return _repository.getCurrentUser();
   }
 }
