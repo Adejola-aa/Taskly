@@ -8,8 +8,12 @@ import 'package:taskly/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: WidgetsBinding.instance);
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await GoogleSignIn.instance.initialize();
+
+  FlutterNativeSplash.remove();
   runApp(ProviderScope(child: const TasklyApp()));
 }
 
