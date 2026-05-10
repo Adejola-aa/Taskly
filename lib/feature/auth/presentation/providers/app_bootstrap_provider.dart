@@ -7,10 +7,10 @@ final appBootstrapProvider =
     StreamProvider<({bool hasSeenOnboarding, AppUserEntity? user})>((
       ref,
     ) async* {
-      final authStream = ref.watch(firebaseInstanceProvider);
+      final authInstance = ref.watch(firebaseInstanceProvider);
       final hasSeenOnboarding = await AppPreferences.hasSeenOnboarding();
 
-      yield* authStream.authStateChanges().map(
+      yield* authInstance.authStateChanges().map(
         (user) => (
           hasSeenOnboarding: hasSeenOnboarding,
           user: user == null

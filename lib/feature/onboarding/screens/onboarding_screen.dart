@@ -58,6 +58,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       body: Column(
         children: [
+          Align(alignment: Alignment.topLeft, child: Icon(Icons.close)),
           Expanded(
             child: PageView.builder(
               controller: _pageController,

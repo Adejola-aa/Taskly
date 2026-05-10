@@ -62,7 +62,7 @@ class AppColors {
 
   static const Color lightScaffoldBackground = lightBackground;
   static const Color darkScaffoldBackground = darkBackground;
-
+  //181820
   static const Color secondary = categoryPurple;
   static const Color secondaryLight = categoryPurple;
 
@@ -87,7 +87,7 @@ class AppColors {
 
   static const Color iconPrimary = textPrimary;
   static const Color iconSecondary = textSecondary;
-  static const Color iconAccent = primary; 
+  static const Color iconAccent = primary;
 
   // ---------------------------------------------------------------------------
   // NEUTRALS
@@ -97,4 +97,3 @@ class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color transparent = Colors.transparent;
 }
-
