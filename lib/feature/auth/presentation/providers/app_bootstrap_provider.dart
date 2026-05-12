@@ -1,3 +1,4 @@
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taskly/core/utils/app_preferences.dart';
 import 'package:taskly/feature/auth/domain/entity/app_user_entity.dart';
@@ -9,6 +10,8 @@ final appBootstrapProvider =
     ) async* {
       final authInstance = ref.watch(firebaseInstanceProvider);
       final hasSeenOnboarding = await AppPreferences.hasSeenOnboarding();
+
+      FlutterNativeSplash.remove();
 
       yield* authInstance.authStateChanges().map(
         (user) => (

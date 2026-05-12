@@ -7,17 +7,21 @@ import 'package:taskly/config/router/router_notifier.dart';
 import 'package:taskly/core/utils/custom_page_transition.dart';
 import 'package:taskly/core/utils/keyboard_observer.dart';
 import 'package:taskly/feature/auth/presentation/providers/app_bootstrap_provider.dart';
+import 'package:taskly/feature/onboarding/screens/onboarding_screen.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final refresh = GoRouterRefreshNotifier(ref, appBootstrapProvider);
   final rootNavKey = GlobalKey<NavigatorState>();
   return GoRouter(
     navigatorKey: rootNavKey,
-    initialLocation: AppRoutes.splash,
+    initialLocation: AppRoutes.onboarding,
     observers: [KeyboardDismissObserver()],
     refreshListenable: refresh,
     routes: [
       StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return Placeholder(); // temporary until you build BottomNavShell
+        },
         branches: [
           // --- Dashboard Tab ---
           StatefulShellBranch(
@@ -82,22 +86,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
 
       GoRoute(
-        path: AppRoutes.splash,
-        name: RouteNames.splash,
-        pageBuilder: (context, state) => buildFadeTransition(
-          context: context,
-          state: state,
-          child: const Placeholder(),
-        ),
-      ),
-
-      GoRoute(
         path: AppRoutes.onboarding,
         name: RouteNames.onboarding,
         pageBuilder: (context, state) => buildSlideTransition(
           context: context,
           state: state,
-          child: const Placeholder(),
+          child: const OnboardingScreen(),
         ),
       ),
 
@@ -136,33 +130,19 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       final bootstrap = ref.read(appBootstrapProvider);
       final loc = state.matchedLocation;
 
-      if (bootstrap.isLoading) {
-        return loc == AppRoutes.splash ? null : AppRoutes.splash;
-      }
-
+      if (bootstrap.isLoading) return null;
+        
       final hasSeenOnboarding = bootstrap.value?.hasSeenOnboarding ?? false;
       final user = bootstrap.value?.user;
-
-      if (loc == AppRoutes.splash) {
-        return hasSeenOnboarding
-            ? (user != null ? AppRoutes.dashboard : AppRoutes.logIn)
-            : AppRoutes.onboarding;
-      }
-
-      if (!hasSeenOnboarding) {
-        return loc == AppRoutes.onboarding ? null : AppRoutes.onboarding;
-      }
 
       final isAuthRoute =
           loc == AppRoutes.logIn ||
           loc == AppRoutes.signUp ||
           loc == AppRoutes.forgetPassword;
 
-      // final isProtected =
-      //     loc.startsWith(AppRoutes.dashboard) ||
-      //     loc.startsWith(AppRoutes.calendar) ||
-      //     loc.startsWith(AppRoutes.categories) ||
-      //     loc.startsWith(AppRoutes.profile);
+      if (!hasSeenOnboarding) {
+        return loc == AppRoutes.onboarding ? null : AppRoutes.onboarding;
+      }
 
       if (user == null) {
         return isAuthRoute ? null : AppRoutes.logIn;
