@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:go_router/go_router.dart';
+import 'package:taskly/config/router/routes.dart';
+import 'package:taskly/core/constants/colors.dart';
 import 'package:taskly/core/constants/image_strings.dart';
+import 'package:taskly/core/utils/app_preferences.dart';
 import 'package:taskly/feature/onboarding/model/onboarding_model.dart';
 import 'package:taskly/feature/onboarding/widgets/onboarding_indicator.dart';
 import 'package:taskly/feature/onboarding/widgets/onboarding_page.dart';
@@ -19,17 +22,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final List<OnboardingModel> pages = [
     const OnboardingModel(
       title: 'Taskly',
-      subtitile: 'Organize your tasks.\nAchieve more every day.',
+      subtitle: 'Organize your tasks.\nAchieve more every day.',
       image: AppImages.onboarding1,
     ),
     const OnboardingModel(
       title: 'Stay Productive',
-      subtitile: 'Manage your daily tasks\nwith ease and focus.',
+      subtitle: 'Manage your daily tasks\nwith ease and focus.',
       image: AppImages.onboarding2,
     ),
     const OnboardingModel(
       title: 'Never Miss a Task',
-      subtitile: 'Track deadlines and stay\non top of your schedule.',
+      subtitle: 'Track deadlines and stay\non top of your schedule.',
       image: AppImages.onboarding3,
     ),
   ];
@@ -46,59 +49,82 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     super.dispose();
   }
 
-  void getStarted() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const Placeholder()),
-    );
+  void _getStarted() async {
+    await AppPreferences.setOnboardingSeen();
+    if (mounted) context.go(AppRoutes.logIn);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              controller: _pageController,
-              onPageChanged: (index) {
-                setState(() => _currentIndex = index);
-              },
-              itemCount: pages.length,
-              itemBuilder: (context, index) {
-                final page = pages[index];
-
-                return OnboardingPage(
-                  title: page.title,
-                  subtitle: page.subtitile,
-                  image: page.image,
-                );
-              },
-            ),
-          ),
-
-          const SizedBox(height: 10),
-
-          OnboardingIndicator(
-            currentIndex: _currentIndex,
-            length: pages.length,
-          ),
-
-          const SizedBox(height: 20),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: getStarted,
-                child: Text("Get Started"),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: GestureDetector(
+                  onTap: _getStarted,
+                  child: Icon(Icons.close),
+                ),
               ),
-            ),
-          ),
+              Expanded(
+                child: PageView.builder(
+                  controller: _pageController,
+                  onPageChanged: (index) {
+                    setState(() => _currentIndex = index);
+                  },
+                  itemCount: pages.length,
+                  itemBuilder: (context, index) {
+                    final page = pages[index];
 
-          const SizedBox(height: 20),
-        ],
+                    return OnboardingPage(
+                      title: page.title,
+                      subtitle: page.subtitle,
+                      image: page.image,
+                    );
+                  },
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              OnboardingIndicator(
+                currentIndex: _currentIndex,
+                length: pages.length,
+              ),
+
+              const SizedBox(height: 20),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_currentIndex < pages.length - 1) {
+                        _pageController.nextPage(
+                          duration: const Duration(milliseconds: 400),
+                          curve: Curves.easeInOut,
+                        );
+                      } else {
+                        _getStarted();
+                      }
+                    },
+                    child: Text(
+                      _currentIndex == pages.length - 1
+                          ? 'Get Started'
+                          : 'Next',
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 30),
+            ],
+          ),
+        ),
       ),
     );
   }

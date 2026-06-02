@@ -16,7 +16,7 @@ class AppColors {
   // ---------------------------------------------------------------------------
 
   static const Color lightBackground = Color(0xFFF7F8FC);
-  static const Color darkBackground = Color(0xFF111827);
+  static const Color darkBackground = Color(0xFF181820);
 
   static const Color card = Color(0xFFFFFFFF);
   static const Color darkCard = Color(0xFF1F2937);
@@ -31,8 +31,9 @@ class AppColors {
   static const Color textPrimary = Color(0xFF1F2937);
   static const Color textSecondary = Color(0xFF9CA3AF);
 
-  static const Color textWhite = Colors.white;
-
+  static const Color darkTextPrimary = Color(0xFFFFFFFF);
+  static const Color darkTextSecondary = Color(0xFFB0B3C0);
+  
   // ---------------------------------------------------------------------------
   // PRIORITY / STATUS COLORS
   // ---------------------------------------------------------------------------
@@ -60,8 +61,8 @@ class AppColors {
   // SEMANTIC ALIASES FOR THEME SYSTEM
   // ---------------------------------------------------------------------------
 
-  static const Color lightScaffoldBackground = lightBackground;
-  static const Color darkScaffoldBackground = darkBackground;
+  static const Color lightScaffoldBackground = Color(0XFFF6F7F9);
+  static const Color darkScaffoldBackground = Color(0xFF111111);
 
   static const Color secondary = categoryPurple;
   static const Color secondaryLight = categoryPurple;
@@ -87,7 +88,7 @@ class AppColors {
 
   static const Color iconPrimary = textPrimary;
   static const Color iconSecondary = textSecondary;
-  static const Color iconAccent = primary; 
+  static const Color iconAccent = primary;
 
   // ---------------------------------------------------------------------------
   // NEUTRALS
@@ -97,4 +98,3 @@ class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color transparent = Colors.transparent;
 }
-

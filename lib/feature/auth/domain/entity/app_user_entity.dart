@@ -1,0 +1,13 @@
+class AppUserEntity {
+  final String id;
+  final String email;
+  final String displayName;
+  final String? photoUrl;
+
+  const AppUserEntity({
+    required this.id,
+    required this.email,
+    required this.displayName,
+    this.photoUrl,
+  });
+}

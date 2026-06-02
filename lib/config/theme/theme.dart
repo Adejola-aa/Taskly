@@ -17,6 +17,7 @@ class AppTheme {
   AppTheme._();
 
   static ThemeData lightTheme = ThemeData(
+    fontFamily: 'Inter',
     brightness: Brightness.light,
     textTheme: AppTextTheme.light,
     colorScheme: AppColorScheme.light,
@@ -33,6 +34,7 @@ class AppTheme {
   );
 
   static ThemeData darkTheme = ThemeData(
+    fontFamily: 'Inter',
     brightness: Brightness.dark,
     textTheme: AppTextTheme.dark,
     colorScheme: AppColorScheme.dark,

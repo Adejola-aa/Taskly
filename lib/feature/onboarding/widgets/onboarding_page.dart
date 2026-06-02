@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskly/feature/onboarding/screens/onboarding_screen.dart';
 
 class OnboardingPage extends StatelessWidget {
   final String title;
@@ -14,28 +15,33 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(image, height: 250),
+          Image.asset(image, height: 350, fit: BoxFit.contain),
 
-          const SizedBox(height: 30),
 
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const OnboardingScreen(),
+                ),
+              );
+            },
+            child: Text('view all'),
           ),
 
-          const SizedBox(height: 16),
+          Text(title, textAlign: TextAlign.center, style: theme.displaySmall),
 
-          Text(
-            subtitle,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 16, color: Colors.grey),
-          ),
+          const SizedBox(height: 15),
+
+          Text(subtitle, textAlign: TextAlign.center, style: theme.bodyLarge),
         ],
       ),
     );

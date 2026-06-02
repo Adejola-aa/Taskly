@@ -36,6 +36,15 @@ dependencies:
   cupertino_icons: ^1.0.8
   go_router: ^17.2.3
   shared_preferences: ^2.5.5
+  firebase_core: ^4.7.0
+  firebase_auth: ^6.4.0
+  google_sign_in: ^7.2.0
+  sign_in_with_apple: ^8.0.0
+  cloud_firestore: ^6.3.0
+  fpdart: ^1.2.0
+  flutter_riverpod: ^3.3.1
+  flutter_native_splash: ^2.4.7
+  logger: ^2.7.0
 
 dev_dependencies:
   flutter_test:
@@ -47,7 +56,6 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
-  flutter_native_splash: ^2.4.7
   flutter_launcher_icons: ^0.14.4
 
 # For information on the generic Dart part of this file, see the
@@ -99,25 +107,24 @@ flutter:
 
 
 flutter_native_splash:
-  color: "#624BEB"
-  image: assets/icons/icon.png
-  fullscreen: true   
-
+  color: "#5B4FCF"
+  image: assets/icons/icon_fg.png  
+  fullscreen: true
+  android_gravity: center
   android_12:
-    color: "#624BEB"
-    image: assets/icons/icon.png
-    icon_background_color: "#624BEB"
-
-
+    color: "#5B4FCF"
+    image: assets/icons/icon_fg.png
+  ios: true
+  web: false
 
 
 flutter_launcher_icons:
-
   android: true
   ios: true
   remove_alpha_ios: true
-
+  min_sdk_android: 21
   image_path: "assets/icons/icon.png"
+  adaptive_icon_background: "#5B4FCF"
+  adaptive_icon_foreground: "assets/icons/icon_fg.png" 
   
-  # adaptive_icon_background: "#624BEB"
-  # adaptive_icon_foreground: "assets/icons/icon_fg.png"  
+ 
