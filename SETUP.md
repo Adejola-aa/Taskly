@@ -8,7 +8,7 @@ Complete guide to set up your Taskly development environment.
 
 Before you begin, ensure you have:
 
-- **Flutter SDK** 3.11.5 or higher
+- **Flutter SDK** 3.41.7 or higher
   - [Install Flutter](https://flutter.dev/docs/get-started/install)
   - Run `flutter --version` to verify
 
@@ -31,14 +31,6 @@ Before you begin, ensure you have:
 - CocoaPods
 - A physical device or simulator
 - Apple Developer account (for releases)
-
-#### Web Development
-- Chrome, Firefox, or Safari browser
-
-#### Windows/Linux Development
-- Visual Studio Code or similar editor
-- C++ build tools (for Windows)
-- GCC/Clang (for Linux)
 
 ---
 
@@ -145,25 +137,6 @@ flutter devices
 flutter run -d <device_id>
 ```
 
-### Run with Custom Flavor
-
-```bash
-# Development
-flutter run --flavor dev
-
-# Production
-flutter run --flavor prod
-```
-
-### Hot Reload During Development
-
-While the app is running, press:
-- **R** - Hot Reload (fast, keeps state)
-- **r** - Full Restart (slower, clears state)
-- **Q** - Quit
-
----
-
 ## 🏗️ Project Structure Explained
 
 ```
@@ -227,86 +200,6 @@ taskly/
 
 ---
 
-## 📦 Key Dependencies Explained
-
-### State Management
-- **flutter_riverpod** (3.3.1) - Reactive state management
-
-### Networking & Cloud
-- **firebase_core** (4.7.0) - Firebase initialization
-- **firebase_auth** (6.4.0) - User authentication
-- **cloud_firestore** (6.3.0) - Cloud database
-- **google_sign_in** (7.2.0) - Google OAuth
-- **sign_in_with_apple** (8.0.0) - Apple OAuth
-
-### Navigation
-- **go_router** (17.2.3) - Modern routing
-
-### Local Storage
-- **shared_preferences** (2.5.5) - Simple key-value storage
-
-### Utilities
-- **fpdart** (1.2.0) - Functional programming
-- **logger** (2.7.0) - Logging utility
-- **flutter_native_splash** (2.4.7) - Native splash screens
-
----
-
-## 🔧 Configuration
-
-### Environment Variables
-
-Create a `.env` file in the project root (optional):
-
-```env
-FIREBASE_API_KEY=your_api_key
-FIREBASE_PROJECT_ID=your_project_id
-```
-
-### Linting Configuration
-
-Code style is enforced by `analysis_options.yaml`. Run:
-
-```bash
-# Analyze code
-flutter analyze
-
-# Format code automatically
-dart format lib/
-```
-
----
-
-## 📱 Testing
-
-### Run Tests
-
-```bash
-# Run all tests
-flutter test
-
-# Run tests with coverage
-flutter test --coverage
-
-# Run tests for specific file
-flutter test test/widget_test.dart
-```
-
-### Test Coverage
-
-View coverage report (requires `lcov`):
-
-```bash
-# Generate coverage
-flutter test --coverage
-
-# View report
-genhtml coverage/lcov.info -o coverage/html
-open coverage/html/index.html
-```
-
----
-
 ## 🏗️ Building for Release
 
 ### Android Release Build
@@ -335,33 +228,7 @@ Then open in Xcode:
 ```bash
 open ios/Runner.xcworkspace
 ```
-
-### Web Release Build
-
-```bash
-flutter build web --release
-```
-
-Output: `build/web/`
-
 ---
-
-## 🐛 Debugging
-
-### Enable Debug Logging
-
-In `main.dart`, add:
-
-```dart
-import 'package:logger/logger.dart';
-
-final logger = Logger();
-
-void main() {
-  logger.i('App started');
-  // ... rest of main
-}
-```
 
 ### Use DevTools
 
@@ -396,11 +263,6 @@ flutter pub get
 # Rebuild
 flutter run
 ```
-
-#### Hot Reload Not Working
-- Do a full restart: Press **r** in terminal
-- If still failing, stop and restart: `flutter run`
-
 ---
 
 ## 📚 Additional Resources
