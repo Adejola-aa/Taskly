@@ -6,270 +6,155 @@ class AppTextTheme {
 
   static const _fontFamily = 'Inter';
 
-  static TextTheme light = TextTheme(
+  static TextTheme _build(Color primary) => TextTheme(
+    // ── Display ──────────────────────────────────────────────────────────
+    // Used for hero numbers, splash screens, large marketing copy.
     displayLarge: TextStyle(
       fontFamily: _fontFamily,
       fontSize: 40.0,
-      height: 1.4,
-      letterSpacing: 0.5,
-      fontWeight: FontWeight.w500,
-      color: AppColors.textPrimary,
+      height: 1.2,
+      letterSpacing: -0.5,
+      fontWeight: FontWeight.w700,
+      color: primary,
     ),
+
     displayMedium: TextStyle(
       fontFamily: _fontFamily,
       fontSize: 32.0,
-      height: 1.18,
+      height: 1.25,
       letterSpacing: -0.25,
-      fontWeight: FontWeight.w700,
-      color: AppColors.textPrimary,
+      fontWeight: FontWeight.w600,
+      color: primary,
     ),
+
     displaySmall: TextStyle(
       fontFamily: _fontFamily,
-      fontSize: 24.0,
-      fontWeight: FontWeight.normal,
-      color: AppColors.textPrimary,
+      fontSize: 28.0,
+      height: 1.3,
+      letterSpacing: -0.1,
+      fontWeight: FontWeight.w500,
+      color: primary,
     ),
 
-    //  Major page titles
+    // ── Headline ─────────────────────────────────────────────────────────
+    // Major page titles → section headers → sub-section headers.
     headlineLarge: TextStyle(
       fontFamily: _fontFamily,
-      fontSize: 24,
+      fontSize: 24.0,
       height: 1.25,
+      letterSpacing: -0.1,
       fontWeight: FontWeight.w700,
-      color: AppColors.textPrimary,
+      color: primary,
     ),
 
-    //  Section header (MOST USED)
     headlineMedium: TextStyle(
       fontFamily: _fontFamily,
       fontSize: 20.0,
+      height: 1.3,
+      letterSpacing: 0.0,
       fontWeight: FontWeight.w600,
-      color: AppColors.textPrimary,
+      color: primary,
     ),
 
-    // Sub Section Header
     headlineSmall: TextStyle(
       fontFamily: _fontFamily,
       fontSize: 18.0,
+      height: 1.3,
+      letterSpacing: 0.0,
       fontWeight: FontWeight.w600,
-      color: AppColors.textPrimary,
+      color: primary,
     ),
 
-    // Card / Dialog / AppBar titles
+    // ── Title ─────────────────────────────────────────────────────────────
+    // Card / dialog / AppBar titles, list item primaries, form section labels.
     titleLarge: TextStyle(
       fontFamily: _fontFamily,
-      fontSize: 17.0,
+      fontSize: 16.0,
+      height: 1.35,
+      letterSpacing: 0.1,
       fontWeight: FontWeight.w600,
-      color: AppColors.textPrimary,
+      color: primary,
     ),
 
     titleMedium: TextStyle(
       fontFamily: _fontFamily,
       fontSize: 14.0,
-      height: 1.0,
-      color: AppColors.textPrimary,
-    ),
-
-    titleSmall: TextStyle(
-      fontSize: 13.0,
-      fontFamily: _fontFamily,
-      fontWeight: FontWeight.w600,
-      height: 1.35,
+      height: 1.4,
       letterSpacing: 0.1,
-      color: AppColors.textPrimary,
-    ),
-
-    //  Paragraph text
-    bodyLarge: TextStyle(
-      fontFamily: _fontFamily,
-      fontSize: 17.0,
-      height: 1.55,
-      letterSpacing: 0.2,
-      fontWeight: FontWeight.w400,
-      color: AppColors.textPrimary,
-    ),
-
-    //  Descriptions / helper tex
-    bodyMedium: TextStyle(
-      fontFamily: _fontFamily,
-      fontSize: 14.0,
-      height: 1.5,
-      letterSpacing: 0.2,
-      fontWeight: FontWeight.w400,
-      color: AppColors.textPrimary.withValues(alpha: 0.75),
-    ),
-
-    //  Input labels / fine print
-    bodySmall: TextStyle(
-      fontFamily: _fontFamily,
-      fontSize: 12,
-      height: 1.4,
-      letterSpacing: 0.2,
-      fontWeight: FontWeight.w400,
-      color: AppColors.textPrimary.withValues(alpha: 0.6),
-    ),
-
-    labelLarge: TextStyle(
-      fontFamily: _fontFamily,
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-      height: 1.2,
-      color: AppColors.textPrimary,
-      letterSpacing: 0.3,
-    ),
-
-    //  Chips / small buttons
-    labelMedium: TextStyle(
-      fontFamily: _fontFamily,
-      fontSize: 12,
-      height: 1.2,
       fontWeight: FontWeight.w500,
-      color: AppColors.textPrimary,
-      letterSpacing: 0.3,
-    ),
-
-    //  Badges / micro text
-    labelSmall: TextStyle(
-      fontFamily: _fontFamily,
-      fontSize: 11,
-      height: 1.2,
-      letterSpacing: 0.35,
-      fontWeight: FontWeight.w600,
-      color: AppColors.textPrimary,
-    ),
-  );
-
-  /* -- Dark Text Theme -- */
-  static TextTheme dark = TextTheme(
-    displayLarge: TextStyle(
-      fontFamily: _fontFamily,
-      fontSize: 40.0,
-      height: 1.4,
-      letterSpacing: 0.5,
-      fontWeight: FontWeight.w500,
-      color: AppColors.darkTextPrimary,
-    ),
-    displayMedium: TextStyle(
-      fontFamily: _fontFamily,
-      fontSize: 32.0,
-      height: 1.18,
-      letterSpacing: -0.25,
-      fontWeight: FontWeight.w700,
-      color: AppColors.darkTextPrimary,
-    ),
-    displaySmall: TextStyle(
-      fontFamily: _fontFamily,
-      fontSize: 24.0,
-      fontWeight: FontWeight.normal,
-      color: AppColors.darkTextPrimary,
-    ),
-
-    //  Major page titles
-    headlineLarge: TextStyle(
-      fontFamily: _fontFamily,
-      fontSize: 24,
-      color: AppColors.darkTextPrimary,
-      fontWeight: FontWeight.w700,
-      height: 1.25,
-    ),
-
-    //  Section header (MOST USED)
-    headlineMedium: TextStyle(
-      fontFamily: _fontFamily,
-      fontSize: 20.0,
-      fontWeight: FontWeight.w600,
-      color: AppColors.darkTextPrimary,
-    ),
-
-    // Sub Section Header
-    headlineSmall: TextStyle(
-      fontFamily: _fontFamily,
-      fontSize: 18.0,
-      fontWeight: FontWeight.w600,
-      color: AppColors.darkTextPrimary,
-    ),
-
-    // Card / Dialog / AppBar titles
-    titleLarge: TextStyle(
-      fontFamily: _fontFamily,
-      fontSize: 17.0,
-      fontWeight: FontWeight.w600,
-      color: AppColors.darkTextPrimary,
-    ),
-
-    titleMedium: TextStyle(
-      fontFamily: _fontFamily,
-      fontSize: 14.0,
-      height: 1.0,
-      color: AppColors.darkTextPrimary,
+      color: primary,
     ),
 
     titleSmall: TextStyle(
       fontFamily: _fontFamily,
       fontSize: 13.0,
-      color: AppColors.darkTextPrimary,
-      fontWeight: FontWeight.w600,
       height: 1.35,
       letterSpacing: 0.1,
+      fontWeight: FontWeight.w600,
+      color: primary,
     ),
 
-    //  Paragraph text
+    // ── Body ──────────────────────────────────────────────────────────────
+    // Paragraph text, descriptions, fine print.
+    // Opacity steps: primary (1.0) → 0.75 → 0.6 — intentional hierarchy.
     bodyLarge: TextStyle(
       fontFamily: _fontFamily,
       fontSize: 17.0,
       height: 1.55,
-      letterSpacing: 0.2,
+      letterSpacing: 0.15,
       fontWeight: FontWeight.w400,
-      color: AppColors.darkTextPrimary,
+      color: primary,
     ),
 
-    //  Descriptions / helper tex
     bodyMedium: TextStyle(
+      fontFamily: _fontFamily,
       fontSize: 14.0,
       height: 1.5,
-      letterSpacing: 0.2,
-      fontFamily: _fontFamily,
+      letterSpacing: 0.15,
       fontWeight: FontWeight.w400,
-      color: AppColors.darkTextPrimary.withValues(alpha: 0.75),
+      color: primary.withValues(alpha: 0.75),
     ),
 
-    //  Input labels / fine print
     bodySmall: TextStyle(
-      fontSize: 12,
+      fontFamily: _fontFamily,
+      fontSize: 12.0,
       height: 1.4,
       letterSpacing: 0.2,
-      fontFamily: _fontFamily,
       fontWeight: FontWeight.w400,
-      color: AppColors.darkTextPrimary.withValues(alpha: 0.6),
+      color: primary.withValues(alpha: 0.6),
     ),
 
+    // ── Label ─────────────────────────────────────────────────────────────
+    // Buttons, chips, badges, micro text.
+    // All labels use tighter line-height (1.2) and clear letter-spacing.
     labelLarge: TextStyle(
       fontFamily: _fontFamily,
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
+      fontSize: 14.0,
       height: 1.2,
-      color: AppColors.darkTextPrimary,
       letterSpacing: 0.3,
+      fontWeight: FontWeight.w500,
+      color: primary,
     ),
 
-    //  Chips / small buttons
     labelMedium: TextStyle(
       fontFamily: _fontFamily,
-      fontSize: 12,
+      fontSize: 12.0,
       height: 1.2,
-      fontWeight: FontWeight.w500,
-      color: AppColors.darkTextPrimary,
       letterSpacing: 0.3,
+      fontWeight: FontWeight.w500,
+      color: primary,
     ),
 
-    //  Badges / micro text
     labelSmall: TextStyle(
       fontFamily: _fontFamily,
-      fontSize: 11,
+      fontSize: 11.0,
       height: 1.2,
-      letterSpacing: 0.35,
+      letterSpacing: 0.4,
       fontWeight: FontWeight.w600,
-      color: AppColors.darkTextPrimary,
+      color: primary,
     ),
   );
+
+  static TextTheme light = _build(AppColors.textPrimary);
+  static TextTheme dark = _build(AppColors.darkTextPrimary);
 }

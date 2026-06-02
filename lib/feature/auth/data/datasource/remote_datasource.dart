@@ -137,9 +137,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDatasource {
 
       final user = result.user!;
 
-      await user.updateDisplayName(displayName);
-
-      await user.reload();
+      try {
+        await user.updateDisplayName(displayName);
+        await user.reload();
+      } catch (e, s) {
+        appLogger.w('Display name update failed', error: e, stackTrace: s);
+      }
 
       final updatedUser = auth.currentUser!;
 
@@ -178,13 +181,17 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDatasource {
           false;
 
       if (isGoogleUser) {
-        await GoogleSignIn.instance.signOut();
+        try {
+          await GoogleSignIn.instance.signOut();
+        } catch (e, s) {
+          appLogger.w('Google sign-out failed', error: e, stackTrace: s);
+        }
       }
 
       await auth.signOut();
     } catch (e, s) {
       appLogger.e('Unexpected sign out error', error: e, stackTrace: s);
-      throw const ServerException(message: 'Failed to sign out');
+      throw const ServerException(message: 'Failed to sign out.');
     }
   }
 }

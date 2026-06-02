@@ -19,6 +19,8 @@ class OnboardingIndicator extends StatelessWidget {
       children: List.generate(length, (index) {
         final isActive = index == currentIndex;
 
+
+
         return AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           margin: const EdgeInsets.symmetric(horizontal: 4),

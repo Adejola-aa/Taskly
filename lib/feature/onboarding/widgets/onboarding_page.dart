@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskly/feature/onboarding/screens/onboarding_screen.dart';
 
 class OnboardingPage extends StatelessWidget {
   final String title;
@@ -23,17 +24,24 @@ class OnboardingPage extends StatelessWidget {
         children: [
           Image.asset(image, height: 350, fit: BoxFit.contain),
 
-          const SizedBox(height: 30),
 
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: theme.displayLarge!.copyWith(fontSize: 35),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const OnboardingScreen(),
+                ),
+              );
+            },
+            child: Text('view all'),
           ),
 
-          const SizedBox(height: 16),
+          Text(title, textAlign: TextAlign.center, style: theme.displaySmall),
 
-          Text(subtitle, textAlign: TextAlign.center, style: theme.titleLarge),
+          const SizedBox(height: 15),
+
+          Text(subtitle, textAlign: TextAlign.center, style: theme.bodyLarge),
         ],
       ),
     );

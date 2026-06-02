@@ -14,7 +14,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
   final rootNavKey = GlobalKey<NavigatorState>();
   return GoRouter(
     navigatorKey: rootNavKey,
-    initialLocation: AppRoutes.onboarding,
     observers: [KeyboardDismissObserver()],
     refreshListenable: refresh,
     routes: [
@@ -131,7 +130,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       final loc = state.matchedLocation;
 
       if (bootstrap.isLoading) return null;
-        
+
       final hasSeenOnboarding = bootstrap.value?.hasSeenOnboarding ?? false;
       final user = bootstrap.value?.user;
 
