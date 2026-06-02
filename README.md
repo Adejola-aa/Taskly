@@ -137,11 +137,6 @@ lib/
 
 ## 🔧 Development
 
-### Running Tests
-```bash
-flutter test
-```
-
 ### Building for Release
 ```bash
 # Android
@@ -150,31 +145,10 @@ flutter build apk --release
 # iOS
 flutter build ios --release
 
-# Web
-flutter build web --release
-```
-
-### Formatting & Linting
-```bash
-# Format code
-dart format .
-
-# Analyze code
-flutter analyze
 ```
 
 ---
 
-## 📱 Platform Support
-
-- ✅ Android 5.0+
-- ✅ iOS 12.0+
-- ✅ Web (Chrome, Firefox, Safari)
-- ✅ Windows 10+
-- ✅ macOS 11+
-- ✅ Linux
-
----
 
 ## 🔐 Security
 
@@ -196,12 +170,6 @@ flutter analyze
 - 📧 Email: support@taskly.app
 - 🐛 Found a bug? [Open an issue](https://github.com/yourusername/taskly/issues)
 - 💡 Feature request? [Start a discussion](https://github.com/yourusername/taskly/discussions)
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
 
